@@ -153,7 +153,7 @@ def Nested_Loop_Calculations(Q_states):
 
     Simple_Loop_Calculatons(left_over)
 
-    
+
 
 
 def Add_Message(Message_string):
@@ -249,5 +249,5 @@ final_equasion_result = final_equasion[0] - (final_equasion[1] + final_equasion[
 print(f'final_equasion_result = {final_equasion_result}')
 
 '''
-BEGIN MAIN FUNTION OF CODE (USER INTERFACE)
+END MAIN FUNTION OF CODE (USER INTERFACE)
 '''
