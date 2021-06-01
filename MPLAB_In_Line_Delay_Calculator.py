@@ -10,9 +10,16 @@ what registers should be used and the values to create the delay needed.
 '''
 FUNCTIONS
 '''
-def To_The_Nearest(nearest,input):
-    input = (input // 1) + 1
 
+'''
+this function takes an input from the user and rounds it to the nearest specified
+value. This is used in MPLAB becuase all commands are at least 4 q states long
+(see PIC16F883 PG 227 Each cycle = 4 qstates). This important to get precice
+because in line delays are the most precice way to delay
+'''
+def To_The_Nearest(nearest,input):
+    if str(input).find(".") != -1:
+        input = (input // 1) + 1        #This lops off the decimal and adds one
 
     for number in range(1 , (nearest + 1)):
         result = input / nearest
@@ -20,10 +27,12 @@ def To_The_Nearest(nearest,input):
         if (result_string.find(".0") + 2) == len(result_string):
             break
         input += 1
-    #print(input)
     return(input)
 
 def Simple_Loop_Calculatons(Q_states):
+
+    Add_Message("***SIMPLE LOOP RESULTS***")
+
     pre_nops = Q_states / 256
     #print("pre_nops = " + str(pre_nops))
     Add_Message(f'pre_nops = {pre_nops}')
@@ -84,9 +93,13 @@ def Simple_Loop_Calculatons(Q_states):
     #print("\tRETURN")
     Add_instruction("\tRETURN")
 
+    Add_Message("***END SIMPLE LOOP RESULTS***")
+
     return simple_result
 
 def Nested_Loop_Calculations(Q_states):
+
+    Add_Message("***NESTED LOOP RESULTS***")
 
     pre_nops = Q_states / (256 * 256)
     #print("Nested_pre_nops = " + str(pre_nops))
@@ -136,8 +149,11 @@ def Nested_Loop_Calculations(Q_states):
     Add_instruction(f'\tDECFSZ\t\tCOUNTERX,1\n\tGOTO\t\tLOOPX\n\tDECFSZ \
     COUNTER(X+1),1\n\tGOTO\t\tLOOP2')
 
+    Add_Message("***END NESTED LOOP RESULTS***")
 
     Simple_Loop_Calculatons(left_over)
+
+    
 
 
 def Add_Message(Message_string):
@@ -203,13 +219,17 @@ def Delay_Calc(Crystal_Frequency,Time_To_Wait):
     else:
         #print("This value is too large for the calculator")
         Add_Message(f'This value is too large for the calculator')
-
-
+'''
+END FUNCTIONS
+'''
+'''
+BEGIN MAIN FUNTION OF CODE (USER INTERFACE)
+'''
 # Put the crystal frequency in MHz since it will be converted later
 Crystal_Frequency = 4
 #put the wait time in terms of seconds. This will not be converted to anything
 #else later
-Time_To_Wait = 2.75
+Time_To_Wait = 0.35
 
 Delay_Calc(Crystal_Frequency,Time_To_Wait)
 
@@ -220,12 +240,14 @@ for i in range(len(instruction_list)):
     print(instruction_list[i])
 
 print(f'{equasion_string[0]} - (((({equasion_string[1]} * 4 + 4 + 8) \
-* 256 - 4 + 4 + 4 + 4 + 8) * {equasion_string[2]} - 4 + 4 + 4) - \
+* 256 - 4 + 4 + 4 + 4 + 8) * {equasion_string[2]} - 4 + 4 + 4) + \
 (({equasion_string[3]} * 4 + 4 + 8) * {equasion_string[4]} - 4 + 4 + 4) \
 + ({equasion_string[5]} * 4))')
 
 final_equasion_result = final_equasion[0] - (final_equasion[1] + final_equasion[2] + final_equasion[3])
 
 print(f'final_equasion_result = {final_equasion_result}')
-#for index in range(0,message_inc)):
-#    print(info_list[index])
+
+'''
+BEGIN MAIN FUNTION OF CODE (USER INTERFACE)
+'''
