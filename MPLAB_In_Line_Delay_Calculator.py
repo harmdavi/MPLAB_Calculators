@@ -8,7 +8,6 @@ what registers should be used and the values to create the delay needed.
 '''
 
 '''
-HI SANDEE
 FUNCTIONS
 '''
 
