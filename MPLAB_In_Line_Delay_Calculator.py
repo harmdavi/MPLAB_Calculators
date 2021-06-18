@@ -226,10 +226,10 @@ END FUNCTIONS
 BEGIN MAIN FUNTION OF CODE (USER INTERFACE)
 '''
 # Put the crystal frequency in MHz since it will be converted later
-Crystal_Frequency = 4
+Crystal_Frequency = 3
 #put the wait time in terms of seconds. This will not be converted to anything
 #else later
-Time_To_Wait = 0.35
+Time_To_Wait = 0.40
 
 Delay_Calc(Crystal_Frequency,Time_To_Wait)
 
